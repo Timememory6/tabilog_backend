@@ -1,0 +1,40 @@
+version: "3.8"
+
+volumes:
+  mysql_data:
+    driver: local
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "3333:3000"
+    volumes:
+      - /opt/app/node_modules
+      - .:/opt/app
+    networks:
+      - backend
+    expose:
+      - "3000"
+    depends_on:
+      - mongodb
+  mongodb:
+    restart: always
+    # https://hub.docker.com/_/mongo
+    image: mongo:4
+    volumes:
+      - ./volumes/mongo/db:/data/db
+      - ./volumes/mongo/configdb:/data/configdb
+      - ./volumes/mongo/init:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_DATABASE: "tabilog"
+      TZ: Asia/Tokyo
+    ports:
+      - "27000:27017"
+    networks:
+      - backend
+networks:
+  backend:
+    name: "tabilog-network"
