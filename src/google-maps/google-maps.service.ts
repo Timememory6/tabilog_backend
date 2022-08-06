@@ -45,6 +45,6 @@ export class GoogleMapsService extends Client {
       key: 'foo',
       ranking: PlacesNearbyRanking.distance,
     };
-    placesNearby({ params: params });
+    return await placesNearby({ params: params });
   }
 }
