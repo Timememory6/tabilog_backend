@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Place, PlaceSchema } from 'src/places/place.schema';
+import { Route, RouteSchema } from 'src/routes/route.schema';
 import { PlanEntity } from './entities/plan.entity';
 
-export type PlaceDocument = Document & PlanEntity & Plan;
+export type PlanDocument = Document & PlanEntity & Plan;
 
 @Schema({ timestamps: true })
 export class Plan {
@@ -14,6 +16,12 @@ export class Plan {
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
   createdBy: string;
+
+  @Prop({ required: false, type: [PlaceSchema], default: () => [] })
+  places: Place[];
+
+  @Prop({ required: false, type: [RouteSchema], default: () => [] })
+  routes: Route[];
 }
 
 export const PlanSchema = SchemaFactory.createForClass(Plan);

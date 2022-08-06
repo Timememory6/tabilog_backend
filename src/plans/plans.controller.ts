@@ -1,4 +1,22 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { PlanPlacesService } from 'src/plan-places/plan-places.service';
+import { CreatePlanDto } from './dto/create-plan.dto';
+import { PlansService } from './plans.service';
 
 @Controller('plans')
-export class PlansController {}
+export class PlansController {
+  constructor(
+    private readonly planService: PlansService,
+    private readonly planPlaceService: PlanPlacesService,
+  ) {}
+
+  @Post()
+  create(@Body() createPlanDto: CreatePlanDto) {
+    return this.planService.create(createPlanDto);
+  }
+
+  @Get()
+  findAll(@Body('userid') userid: string) {
+    return this.planService.findAll(userid);
+  }
+}
