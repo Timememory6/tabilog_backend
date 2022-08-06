@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { PlanEntity } from './entities/plan.entity';
 
-export type UserDocument = Document & PlanEntity & Plan;
+export type PlaceDocument = Document & PlanEntity & Plan;
 
 @Schema({ timestamps: true })
 export class Plan {

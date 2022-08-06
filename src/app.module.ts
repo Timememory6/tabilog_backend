@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { PlanModule } from './plan/plan.module';
 import { UsersModule } from './users/users.module';
+import { PlacesModule } from './places/places.module';
 import { PlansModule } from './plans/plans.module';
-import { UsersModule } from './users/users.module';
+import { PlanPlacesModule } from './plan-places/plan-places.module';
 
 @Module({
-  imports: [UserModule, PlanModule, UsersModule, PlansModule],
+  imports: [UsersModule, PlansModule, PlacesModule, PlanPlacesModule],
   controllers: [AppController],
   providers: [AppService],
 })
