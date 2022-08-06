@@ -6,7 +6,6 @@ import {
 import { placesNearby } from '@googlemaps/google-maps-services-js/dist/places/placesnearby';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import axios from 'axios';
 
 @Injectable()
 export class GoogleMapsService extends Client {
@@ -38,11 +37,11 @@ export class GoogleMapsService extends Client {
     return { lng, lat };
   }
 
-  async getNearBy(address) {
+  async getNearBy(address: any, key: string) {
     const pos = this.getAddressCoords(address);
     const params = {
       location: { lat: (await pos).lat, lng: (await pos).lng },
-      key: 'foo',
+      key: key,
       ranking: PlacesNearbyRanking.distance,
     };
     return await placesNearby({ params: params });
