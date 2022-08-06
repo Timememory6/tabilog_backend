@@ -1,15 +1,19 @@
-import { Client, LatLngLiteral } from '@googlemaps/google-maps-services-js';
+import {
+  Client,
+  LatLngLiteral,
+  PlacesNearbyRanking,
+} from '@googlemaps/google-maps-services-js';
+import { placesNearby } from '@googlemaps/google-maps-services-js/dist/places/placesnearby';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import axios from 'axios';
 
 @Injectable()
 export class GoogleMapsService extends Client {
   private readonly accessKey = this.config.get('GOOGLE_MAPS_ACCESS_KEY');
-
   constructor(private config: ConfigService) {
     super();
   }
-
   async getCoordinates(address: {
     street: string;
     number: string;
@@ -32,5 +36,15 @@ export class GoogleMapsService extends Client {
     const { lng, lat } = await this.getCoordinates(address);
 
     return { lng, lat };
+  }
+
+  async getNearBy(address) {
+    const pos = this.getAddressCoords(address);
+    const params = {
+      location: { lat: (await pos).lat, lng: (await pos).lng },
+      key: 'foo',
+      ranking: PlacesNearbyRanking.distance,
+    };
+    placesNearby({ params: params });
   }
 }
