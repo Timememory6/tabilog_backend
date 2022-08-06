@@ -1,14 +1,10 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { PlanPlacesService } from 'src/plan-places/plan-places.service';
 import { CreatePlanDto } from './dto/create-plan.dto';
 import { PlansService } from './plans.service';
 
 @Controller('plans')
 export class PlansController {
-  constructor(
-    private readonly planService: PlansService,
-    private readonly planPlaceService: PlanPlacesService,
-  ) {}
+  constructor(private readonly planService: PlansService) {}
 
   @Post()
   create(@Body() createPlanDto: CreatePlanDto) {
