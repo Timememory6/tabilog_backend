@@ -5,14 +5,10 @@ import {
 } from '@googlemaps/google-maps-services-js';
 import { placesNearby } from '@googlemaps/google-maps-services-js/dist/places/placesnearby';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class GoogleMapsService extends Client {
-  private readonly accessKey = this.config.get('GOOGLE_MAPS_ACCESS_KEY');
-  constructor(private config: ConfigService) {
-    super();
-  }
+  private readonly accessKey = '';
   async getCoordinates(address: {
     street: string;
     number: string;
