@@ -14,11 +14,12 @@ export class UsersService {
     return await createUser.save();
   }
 
-  async findAll() {
-    return await this.userModel.find().exec();
+  findAll() {
+    console.log(this.userModel.find().exec());
+    return this.userModel.find().exec();
   }
 
   async findOne(id: number) {
-    return await this.userModel.findById(id);
+    return await this.userModel.findById(id.toExponential).exec();
   }
 }
